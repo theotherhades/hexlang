@@ -13,10 +13,16 @@ tokens = {
     ";": "SEMICOLON",
     ",": "COMMA",
     ":": "COLON",
+    "?": "QUESTION-POINT",
+    "!": "EXCLAMATION-POINT",
+    "\n": "NEWLINE"
 }
 abc = list("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
 digits = list("0123456789")
 operators = ["PLUS", "MINUS", "MULTIPLY", "DIVIDE", "EQUALS"]
+reserved_names = [
+    "var"
+]
 
 def lex(code: str):
     """
@@ -43,11 +49,11 @@ def lex(code: str):
             
             try:
                 if code[idx + 1] not in abc:
-                    out.append({"token": "NAME", "name": name})
+                    out.append({"token": "NAME", "name": name, "value": name})
                     name = ""
 
             except IndexError:
-                out.append({"token": "NAME", "name": name})
+                out.append({"token": "NAME", "name": name, "value": name})
                 name = ""
 
         elif char in digits:
